@@ -51,7 +51,7 @@ BEGIN
 		else 
 			RETURN query
 			select y.grid_id, sum(y.accessibility_index*(1)) as accessibility_index, sum(y.ai_pop*(1)) as accessibility_index_population from
-			(SELECT x.gid, u.grid_id, x.amenity, u.accessibility_index*((amenities_json -> x.amenity ->> 'weight')::integer)::SMALLINT AS accessibility_index, (u.accessibility_index*x.capacity* (amenities_json -> x.amenity ->> 'weight')) / z.ai_pop::FLOAT(16) AS ai_pop  
+			(SELECT x.gid, u.grid_id, x.amenity, u.accessibility_index*((amenities_json -> x.amenity ->> 'weight')::integer)::SMALLINT AS accessibility_index, (u.accessibility_index*x.capacity* ((amenities_json -> x.amenity ->> 'weight')::integer)) / z.ai_pop::FLOAT(16) AS ai_pop  
 				FROM (
 					SELECT h.gid, h.gridids, h.amenity, h.accessibility_indices[(translation_sensitivities ->> h.amenity)::integer:(translation_sensitivities ->> h.amenity)::integer][1:], s.capacity
 					FROM reached_pois_heatmap h, pois s
