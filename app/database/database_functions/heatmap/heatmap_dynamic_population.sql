@@ -30,7 +30,7 @@ BEGIN
 		if 'nursery' in (select unnest(array_amenities)) and 'Unter 3 Jahren' in (select unnest(user_groups)) then
 			RETURN query
 			select y.grid_id, sum(y.accessibility_index*(1)) as accessibility_index, sum(y.ai_pop*(1)) as accessibility_index_population from
-			(SELECT x.gid, u.grid_id, x.amenity, u.accessibility_index::SMALLINT AS accessibility_index, (u.accessibility_index*x.capacity) / z.ai_pop::FLOAT(16) AS ai_pop  
+			(SELECT x.gid, u.grid_id, x.amenity, u.accessibility_index*((amenities_json -> x.amenity ->> 'weight')::integer)::SMALLINT AS accessibility_index, (u.accessibility_index*x.capacity* ((amenities_json -> x.amenity ->> 'weight')::integer)) / z.ai_pop::FLOAT(16) AS ai_pop  
 				FROM (
 					SELECT h.gid, h.gridids, h.amenity, h.accessibility_indices[(translation_sensitivities ->> h.amenity)::integer:(translation_sensitivities ->> h.amenity)::integer][1:], s.capacity
 					FROM reached_pois_heatmap h, pois s
@@ -40,7 +40,7 @@ BEGIN
 					and h.gid = s.gid
 				)x, UNNEST(x.gridids, x.accessibility_indices) AS u(grid_id, accessibility_index),
 				(select p.gid, sum(p.accessibility_pop) as ai_pop from (
-					select r.gid, r.gridid, r.accessibility_index*unnest(g.usergroups[(translation_user_groups ->> r.amenity)::integer:(translation_user_groups ->> r.amenity)::integer])*0.6 as accessibility_pop from (
+					select r.gid, r.gridid, r.accessibility_index*((amenities_json -> r.amenity ->> 'weight')::integer)*unnest(g.usergroups[(translation_user_groups ->> r.amenity)::integer:(translation_user_groups ->> r.amenity)::integer])*0.6 as accessibility_pop from (
 					select gid, amenity, unnest(gridids) as gridid, unnest(accessibility_indices[(translation_sensitivities ->> m.amenity)::integer:(translation_sensitivities ->> m.amenity)::integer][1:]) as accessibility_index 
 					from reached_pois_heatmap m
 					WHERE m.amenity IN (SELECT UNNEST(pois_one_entrance))
@@ -51,7 +51,7 @@ BEGIN
 		else 
 			RETURN query
 			select y.grid_id, sum(y.accessibility_index*(1)) as accessibility_index, sum(y.ai_pop*(1)) as accessibility_index_population from
-			(SELECT x.gid, u.grid_id, x.amenity, u.accessibility_index::SMALLINT AS accessibility_index, (u.accessibility_index*x.capacity) / z.ai_pop::FLOAT(16) AS ai_pop  
+			(SELECT x.gid, u.grid_id, x.amenity, u.accessibility_index*((amenities_json -> x.amenity ->> 'weight')::integer)::SMALLINT AS accessibility_index, (u.accessibility_index*x.capacity* (amenities_json -> x.amenity ->> 'weight')) / z.ai_pop::FLOAT(16) AS ai_pop  
 				FROM (
 					SELECT h.gid, h.gridids, h.amenity, h.accessibility_indices[(translation_sensitivities ->> h.amenity)::integer:(translation_sensitivities ->> h.amenity)::integer][1:], s.capacity
 					FROM reached_pois_heatmap h, pois s
@@ -61,7 +61,7 @@ BEGIN
 					and h.gid = s.gid
 				)x, UNNEST(x.gridids, x.accessibility_indices) AS u(grid_id, accessibility_index),
 				(select p.gid, sum(p.accessibility_pop) as ai_pop from (
-					select r.gid, r.gridid, r.accessibility_index*unnest(g.usergroups[(translation_user_groups ->> r.amenity)::integer:(translation_user_groups ->> r.amenity)::integer]) as accessibility_pop from (
+					select r.gid, r.gridid, r.accessibility_index*((amenities_json -> r.amenity ->> 'weight')::integer)*unnest(g.usergroups[(translation_user_groups ->> r.amenity)::integer:(translation_user_groups ->> r.amenity)::integer]) as accessibility_pop from (
 					select gid, amenity, unnest(gridids) as gridid, unnest(accessibility_indices[(translation_sensitivities ->> m.amenity)::integer:(translation_sensitivities ->> m.amenity)::integer][1:]) as accessibility_index 
 					from reached_pois_heatmap m
 					WHERE m.amenity IN (SELECT UNNEST(pois_one_entrance))
