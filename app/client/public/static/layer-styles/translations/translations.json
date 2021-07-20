@@ -19,8 +19,20 @@
   },
   "age_14_under": {
     "age_14_under": {
-      "en": "Under 14",
-      "de": "Unter 14"
+      "en": "14 and younger",
+      "de": "14 und jünger"
+    }
+  },
+  "age_15_64": {
+    "age_15_64": {
+      "en": "15 to 64",
+      "de": "15 bis 64"
+    }
+  },
+  "age_65_over": {
+    "age_65_over": {
+      "en": "65 and older",
+      "de": "65 und älter"
     }
   },
   "hh_single_parent": {
@@ -29,10 +41,58 @@
       "de": "Haushalte mit Alleinerziehenden"
     }
   },
-   "hh_two_parent": {
+   "hh_with_children": {
+    "hh_with_children": {
+      "en": "Households with children",
+      "de": "Haushalte mit Kindern"
+    }
+  },
+  "hh_without_children": {
+    "hh_without_children": {
+      "en": "Households without children",
+      "de": "Haushalte ohne Kinder"
+    }
+  },
+  "hh_two_parent": {
     "hh_two_parent": {
       "en": "Two parent households",
       "de": "Haushalte mit zwei Elternteilen"
+    }
+  },
+  "hh_two_parent": {
+    "hh_two_parent": {
+      "en": "Two parent households",
+      "de": "Haushalte mit zwei Elternteilen"
+    }
+  },
+  "origin_foreigner": {
+    "origin_foreigner": {
+      "en": "Foreigners",
+      "de": "Ausländer"
+    }
+  },
+  "origin_with_migration": {
+    "origin_with_migration": {
+      "en": "Germans with a migration background",
+      "de": "Deutsche mit Migrationshintergrund"
+    }
+  },
+  "origin_without_migration": {
+    "origin_without_migration": {
+      "en": "Germans without a migration background",
+      "de": "Deutsche ohne Migrationshintergrund"
+    }
+  },
+  "administrative": {
+    "administrative": {
+      "en": "Administrative",
+      "de": "Administrativ"
+    }
+  },
+  "population": {
+    "population": {
+      "en": "Population",
+      "de": "Bevölkerung"
     }
   },
   "muc_zentren": {

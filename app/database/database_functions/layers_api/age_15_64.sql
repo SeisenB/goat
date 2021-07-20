@@ -1,26 +1,26 @@
 CREATE OR REPLACE FUNCTION age_15_64()
-RETURNS TABLE (vi_nummer TEXT, share integer, score text, geom geometry) AS
-$$ 
-select m.vi_nummer,cast(m.sh_15_64 as integer) as share, 
+RETURNS TABLE (vi_nummer TEXT, pop integer, score text, geom geometry) AS
+$$
+select m.vi_nummer,m."15_65"::integer as pop, 
 case 
-	when m.sh_15_64 = 0 then 0::text
-	when m.sh_15_64 = 999999 then 'nodata'::text
-	when m.sh_15_64 > 0 and m.sh_15_64 < 999999 then p.score::text
+	when m."15_65" = 0 then 0::text
+	when m."15_65" > 999998 then 'nodata'::text
+	when m."15_65" > 0 and m."15_65" < 999999 then p.score::text
 end as score,
 m.geom
 from muc_age m
 full outer join
-(select vi_nummer, sh_15_64 as share, 
-case WHEN sh_15_64 < 0.5 THEN 1 
-WHEN sh_15_64  BETWEEN 0.5 AND 0.5999 THEN 2
-WHEN sh_15_64  BETWEEN 0.6 AND 0.6999 THEN 3 
-WHEN sh_15_64  BETWEEN 0.7 AND 0.7999 THEN 4 
-WHEN sh_15_64  > 0.7999 THEN 5 END AS score, geom 
-from muc_age where sh_15_64 > 0 and sh_15_64 < 999999) p 
+(select vi_nummer, "15_65", 
+case WHEN "15_65" < 1500 THEN 1 
+WHEN "15_65"  BETWEEN 1500 AND 2999 THEN 2
+WHEN "15_65"  BETWEEN 3000 AND 4499 THEN 3 
+WHEN "15_65"  BETWEEN 4500 AND 10000 THEN 4 
+end as score
+from muc_age where "15_65" > 0 and "15_65" < 99999) p 
 on p.vi_nummer = m.vi_nummer
-order by score, share;
+order by score, pop;
 $$
 LANGUAGE sql;
 
 COMMENT ON FUNCTION age_15_64() 
-IS '**FOR-API-FUNCTION** RETURNS col_names[vi_nummer,share,score,geom] **FOR-API-FUNCTION**';
+IS '**FOR-API-FUNCTION** RETURNS col_names[vi_nummer,pop,score,geom] **FOR-API-FUNCTION**';

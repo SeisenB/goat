@@ -1,29 +1,27 @@
 {
-  "name": "usergroup_age_14_under",
+  "name": "origin_without_migration",
   "rules": [
     {
       "name": "Zero",
       "symbolizers": [
         {
           "kind": "Fill",
-          "color": "#CCCCCC",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
+          "color": "#ffffff",
+          "outlineColor": "#004B83",
           "outlineWidth": 0,
           "outlineDasharray": []
         }
       ],
       "filter": 
-        ["==", "score", 1]
+        ["==", "score", 0]
     },
 	{
-      "name": "VeryLowShare",
+      "name": "Below 1000",
       "symbolizers": [
         {
           "kind": "Fill",
           "color": "#D5EDFF",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
+          "outlineColor": "#004B83",
           "outlineWidth": 0,
           "outlineDasharray": []
         }
@@ -32,13 +30,12 @@
         ["==", "score", 1]
     },
     {
-      "name": "LowShare",
+      "name": "1000 to 1999",
       "symbolizers": [
         {
           "kind": "Fill",
-          "color": "#96D2FF",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
+          "color": "#2CA5FF",
+          "outlineColor": "#004B83",
           "outlineWidth": 0,
           "outlineDasharray": []
         }
@@ -47,64 +44,46 @@
 		["==", "score", 2]
     },
     {
-      "name": "MediumShare",
-      "symbolizers": [
-        {
-          "kind": "Fill",
-          "color": "#2CA5FF",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
-          "outlineWidth": 0,
-          "outlineDasharray": []
-        }
-      ],
-      "filter": 
-		["==", "score", 3]
-    },
-    {
-      "name": "HighShare",
+      "name": "2000 to 2999",
       "symbolizers": [
         {
           "kind": "Fill",
           "color": "#006FC2",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
+          "outlineColor": "#004B83",
           "outlineWidth": 0,
           "outlineDasharray": []
         }
       ],
       "filter":
-		["==", "score", 4]
+		["==", "score", 3]
     },
     {
-      "name": "VeryHighShare",
+      "name": "Over 2999",
       "symbolizers": [
         {
           "kind": "Fill",
           "color": "#004B83",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
+          "outlineColor": "#004B83",
           "outlineWidth": 0,
           "outlineDasharray": []
         }
       ],
       "filter": 
-        ["==", "score", 5]
+        ["==", "score", 4]
     },
-	  {
-      "name": "MissingData",
+	{
+      "name": "Missing Data",
       "symbolizers": [
         {
           "kind": "Fill",
-          "color": "#333333",
-          "opacity": 1,
-          "outlineColor": "rgba(0, 0, 255, 0.0)",
+          "color": "#000000",
+          "outlineColor": "#004B83",
           "outlineWidth": 0,
           "outlineDasharray": []
         }
       ],
       "filter": 
-        ["==", "score", 999999]
-    }
+        ["==", "score", "nodata"]
+	}
   ]
 }

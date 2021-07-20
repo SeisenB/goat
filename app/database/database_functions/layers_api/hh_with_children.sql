@@ -1,24 +1,24 @@
 CREATE OR REPLACE FUNCTION hh_with_children()
 RETURNS TABLE (vi_nummer TEXT, share integer, score text, geom geometry) AS
 $$
-select m.vi,cast(m.sh_child*100 as integer) as share, 
+select m.vi_nummer, m.child::integer, 
 case 
-	when m.sh_child = 0 then 0::text
-	when m.sh_child = 999999 then 'nodata'::text
-	when m.sh_child > 0 and m.sh_child < 999999 then p.score::text
+	when m.child = 0 then 0::text
+	when m.child = 999999 then 'nodata'::text
+	when m.child > 0 and m.child < 999999 then p.score::text
 end as score,
 m.geom
 from muc_households m
 full outer join
-(select vi, sh_child as share, 
-case WHEN sh_child < 0.10 THEN 1 
-WHEN sh_child  BETWEEN 0.10 AND 0.19999 THEN 2
-WHEN sh_child  BETWEEN 0.2 AND 0.29999 THEN 3 
-WHEN sh_child  BETWEEN 0.3 AND 0.39999 THEN 4 
-WHEN sh_child  > 0.39999 THEN 5 END AS score, geom 
-from muc_households where sh_child > 0 and sh_child < 99999) p 
-on p.vi = m.vi
-order by score, share;
+(select vi_nummer, child, 
+case WHEN child < 300 THEN 1 
+WHEN child  BETWEEN 300 AND 599 THEN 2
+WHEN child  BETWEEN 600 AND 899 THEN 3 
+WHEN child > 899 THEN 4 
+end as score, geom
+from muc_households where child > 0 and child < 99999) p 
+on p.vi_nummer = m.vi_nummer
+order by score;
 $$
 LANGUAGE sql;
 

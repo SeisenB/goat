@@ -16,7 +16,7 @@
         ["==", "score", 0]
     },
 	{
-      "name": "Below500",
+      "name": "Below 500",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -30,7 +30,7 @@
         ["==", "score", 1]
     },
     {
-      "name": "500to999",
+      "name": "500 to 999",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -44,7 +44,7 @@
 		["==", "score", 2]
     },
     {
-      "name": "1000to1999",
+      "name": "1000 to 1999",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -58,7 +58,7 @@
 		["==", "score", 3]
     },
     {
-      "name": "Over1999",
+      "name": "Over 1999",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -72,7 +72,7 @@
         ["==", "score", 4]
     },
 	{
-      "name": "MissingData",
+      "name": "Missing Data",
       "symbolizers": [
         {
           "kind": "Fill",

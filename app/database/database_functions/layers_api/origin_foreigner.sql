@@ -1,22 +1,22 @@
 CREATE OR REPLACE FUNCTION origin_foreigner()
 RETURNS TABLE (vi_nummer TEXT, share integer, score text, geom geometry) AS
 $$
-select m.vi,cast(m.foreign as integer) as share, 
+select m.vi_nummer,cast(m.foreigner as integer) as share, 
 case 
-	when m.foreign = 0 then 0::text
-	when m.foreign = 999999 then 'nodata'::text
-	when m.foreign > 0 and m.foreign < 999999 then p.score::text
+	when m.foreigner = 0 then 0::text
+	when m.foreigner = 999999 then 'nodata'::text
+	when m.foreigner > 0 and m.foreigner < 999999 then p.score::text
 end as score,
 m.geom
 from muc_origin m
 full outer join
-(select vi, o.foreign as share, 
-case WHEN o.foreign < 500 THEN 1 
-WHEN o.foreign  BETWEEN 500 AND 999 THEN 2
-WHEN o.foreign  BETWEEN 1000 AND 1999 THEN 3
-WHEN o.foreign  > 1999 THEN 4 END AS score, geom 
-from muc_origin o where o.foreign > 0 and o.foreign < 99999) p 
-on p.vi = m.vi
+(select vi_nummer, o.foreigner as share, 
+case WHEN o.foreigner < 500 THEN 1 
+WHEN o.foreigner  BETWEEN 500 AND 999 THEN 2
+WHEN o.foreigner  BETWEEN 1000 AND 1999 THEN 3
+WHEN o.foreigner  > 1999 THEN 4 END AS score, geom 
+from muc_origin o where o.foreigner > 0 and o.foreigner < 99999) p 
+on p.vi_nummer = m.vi_nummer
 order by score, share;
 $$
 LANGUAGE sql;

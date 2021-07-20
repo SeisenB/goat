@@ -1,27 +1,27 @@
-CREATE OR REPLACE FUNCTION hh_without_children()
+CREATE OR REPLACE FUNCTION hh_without_nochildren()
 RETURNS TABLE (vi_nummer TEXT, share integer, score text, geom geometry) AS
 $$
-select m.vi,cast(m.sh_nochild*100 as integer) as share, 
+select m.vi_nummer, m.nochild::integer, 
 case 
-	when m.sh_nochild = 0 then 0::text
-	when m.sh_nochild = 999999 then 'nodata'::text
-	when m.sh_nochild > 0 and m.sh_nochild < 999999 then p.score::text
+	when m.nochild = 0 then 0::text
+	when m.nochild = 999999 then 'nodata'::text
+	when m.nochild > 0 and m.nochild < 999999 then p.score::text
 end as score,
 m.geom
 from muc_households m
 full outer join
-(select vi, sh_nochild as share, 
-case WHEN sh_nochild < 0.60 THEN 1 
-WHEN sh_nochild  BETWEEN 0.60 AND 0.69999 THEN 2
-WHEN sh_nochild  BETWEEN 0.7 AND 0.79999 THEN 3 
-WHEN sh_nochild  BETWEEN 0.8 AND 0.89999 THEN 4 
-WHEN sh_nochild  > 0.89999 THEN 5 END AS score, geom 
-from muc_households where sh_nochild > 0 and sh_nochild < 99999) p 
-on p.vi = m.vi
-order by score, share;
+(select vi_nummer, nochild, 
+case WHEN nochild < 1000 THEN 1 
+WHEN nochild  BETWEEN 1000 AND 1999 THEN 2
+WHEN nochild  BETWEEN 2000 AND 2999 THEN 3 
+WHEN nochild > 2999 THEN 4 
+end as score, geom
+from muc_households where nochild > 0 and nochild < 99999) p 
+on p.vi_nummer = m.vi_nummer
+order by score;
 $$
 LANGUAGE sql;
 
-COMMENT ON FUNCTION hh_without_children() 
+COMMENT ON FUNCTION hh_without_nochildren() 
 IS '**FOR-API-FUNCTION** RETURNS col_names[vi_nummer,share,score,geom] **FOR-API-FUNCTION**';
 

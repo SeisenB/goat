@@ -32,6 +32,7 @@ DATA_REFINEMENT_VARIABLES:
     excluded_class_id_cycling: [0,101,102,103,104,105,106,107,501,502,503,504,701,801]
     categories_no_bicycle: ["use_sidepath","no"]
     categories_sidewalk_no_foot: ["separate"] #Used for visualization purpose only
+    userGroups: {"Gesamtbevölkerung","Unter 3 Jahren","3 bis 5 Jahre","6 bis 14 Jahre","15 bis 64 Jahre","65 bis 74 Jahre","75 Jahre und älter","Ohne Migrationshintergrund","Mit Migrationshintergrund","Ausländer"}
     max_length_links: '300'
     custom_landuse_no_residents: ["AX_TagebauGrubeSteinbruch",
       "AX_SportFreizeitUndErholungsflaeche",

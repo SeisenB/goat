@@ -9,7 +9,6 @@
 </template>
 <script>
 import { Viewer } from "mapillary-js";
-
 //Ol imports
 import OlVectorLayer from "ol/layer/Vector";
 import OlVectorSource from "ol/source/Vector";
@@ -24,17 +23,12 @@ import MVT from "ol/format/MVT";
 import { unByKey } from "ol/Observable";
 import { toLonLat } from "ol/proj";
 import axios from "axios";
-
 //Style and map object import
 import { mapillaryStyleDefs } from "../../../style/OlStyleDefs";
 import { Mapable } from "../../../mixins/Mapable";
 import { mapFields } from "vuex-map-fields";
-
 // Image preview component import (enabled on hover)
 import MapillaryImagePreview from "./controls/MapillaryImagePreview";
-
-import "mapillary-js/dist/mapillary.min.css";
-
 export default {
   name: "app-mapillary",
   components: {
@@ -96,7 +90,6 @@ export default {
       })
       .then(response => {
         this.isMapillaryBtnDisabled = false;
-
         if (response.data) {
           this.isMapillaryBtnDisabled = false;
           const closestFeature = response.data.features[0];
@@ -143,11 +136,9 @@ export default {
         ]
       });
     },
-
     /**
      * Image preview overlay
      */
-
     /**
      * Show popup for the get info module.
      */
@@ -162,7 +153,6 @@ export default {
       });
       this.map.addOverlay(this.imagePreviewOverlay);
     },
-
     /**
      * Radar point layer
      */
@@ -180,7 +170,6 @@ export default {
       });
       this.map.addLayer(this.movePointLayer);
     },
-
     /**
      * Overlay layer (sequences, images)
      */
@@ -218,7 +207,6 @@ export default {
       }
       this.map.addLayer(this.baseOverlayerLayer);
     },
-
     /**
      * Create hover highlight layers
      */
@@ -231,7 +219,6 @@ export default {
       });
       this.map.addLayer(this.hoverHighlightLayer);
     },
-
     /**
      * Overlay layer interactions
      */
@@ -269,7 +256,6 @@ export default {
         }
       });
     },
-
     /**
      * Click event handler
      */
@@ -287,7 +273,6 @@ export default {
           hitTolerance: 5
         }
       );
-
       if (feature) {
         if (feature.get("layer") === "mapillary-sequences") {
           return;
@@ -304,7 +289,6 @@ export default {
       //Update layer
       this.baseOverlayerLayer.changed();
     },
-
     /**
      * Mapillary changed event handler
      */
@@ -329,7 +313,6 @@ export default {
         mapillaryStyleDefs.updateBearingStyle(node.ca)
       );
     },
-
     /**
      * Resize method
      */

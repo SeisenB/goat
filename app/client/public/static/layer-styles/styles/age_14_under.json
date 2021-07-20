@@ -15,8 +15,8 @@
       "filter": 
         ["==", "score", 0]
     },
-	{
-      "name": "under10",
+    {
+      "name": "Below 500",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -27,10 +27,10 @@
         }
       ],
       "filter": 
-        ["==", "score", 1]
+		["==", "score", 1]
     },
     {
-      "name": "10to15",
+      "name": "500 to 999",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -44,7 +44,7 @@
 		["==", "score", 2]
     },
     {
-      "name": "15to20",
+      "name": "1000 to 1499",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -54,25 +54,11 @@
           "outlineDasharray": []
         }
       ],
-      "filter": 
+      "filter":
 		["==", "score", 3]
     },
     {
-      "name": "20to25",
-      "symbolizers": [
-        {
-          "kind": "Fill",
-          "color": "#006FC2",
-          "outlineColor": "#004B83",
-          "outlineWidth": 0,
-          "outlineDasharray": []
-        }
-      ],
-      "filter":
-		["==", "score", 4]
-    },
-    {
-      "name": "25over",
+      "name": "1500 and over",
       "symbolizers": [
         {
           "kind": "Fill",
@@ -83,7 +69,7 @@
         }
       ],
       "filter": 
-        ["==", "score", 5]
+        ["==", "score", 4]
     },
 	  {
       "name": "MissingData",
